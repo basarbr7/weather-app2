@@ -9,6 +9,7 @@ const fetchWeather = async (city) => {
   try {
     const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`);
     if (!response.ok) {
+      weatherResult.innerHTML= "City could not found.....Please enter currect city name";
       throw new Error("City not found..");
     }
     const data = await response.json();
@@ -32,7 +33,7 @@ const displayWeather = (data) => {
   displayTime(data);
   sunMoon(data);
 
-  document.querySelector(".country").innerHTML = `${data.name}, ${data.sys.country}`;
+  document.querySelector(".country").innerHTML = `${data.name}, ${data.sys.country} <span><i class="rotate-180 ml-2 text-[12px] fa-solid fa-house text-[#b2acac]"></i></span>`;
   document.querySelector(".temp").innerHTML = `${Math.round(data.main.temp)}°`;
   document.querySelector(".weatherDesc").innerHTML = `${data.weather[0].description}`;
   document.querySelector(".feelsLike").innerHTML = `<span class="text-[#b9b8b8]">Feels like</span>  &nbsp ${Math.round(data.main.feels_like)}°`;
@@ -96,67 +97,69 @@ document.getElementById("search-button").addEventListener("click", () => {
   if (city) {
     fetchWeather(city);
   } else {
-    weatherResult.innerHTML = `<p class="text-[#f74545] text-lg font-semibold"> Refresh browser and Enter currect City name. ...</p>`;
+    weatherResult.innerHTML = `<p class="text-[#f74545] text-lg font-semibold"> Refresh browser and Enter City name. ...</p>`;
   }
   cityList.classList.remove("opacity-100", "visible");
   cityList.classList.add("opacity-0", "invisible");
+  input.value = "";
 });
 
-async function fetchCities() {
-  try {
-    let response = await fetch(`https://countriesnow.space/api/v0.1/countries/population/cities`)
-    let data = await response.json()
-    data = data.data;
-    cityList.innerHTML = ""; 
+// async function fetchCities() {
+//   try {
+//     let response = await fetch(`https://countriesnow.space/api/v0.1/countries/population/cities`)
+//     let data = await response.json()
+//     data = data.data;
+//     cityList.innerHTML = ""; 
 
-    data.forEach(item => {
-      let cityButton = document.createElement("button")
-        cityButton.classList.add("py-2", "bg-[#204c84]", "cursor-pointer")
-        cityButton.innerHTML = item.city
+//     data.forEach(item => {
+//       let cityButton = document.createElement("button")
+//         cityButton.classList.add("py-2", "bg-[#204c84]", "cursor-pointer")
+//         cityButton.innerHTML = item.city
 
-        cityButton.addEventListener("click", function(){
-          input.value = item.city
-          fetchWeather(item.city)
-          cityList.classList.remove("opacity-100", "visible");
-          cityList.classList.add("opacity-0", "invisible");
-        })
+//         cityButton.addEventListener("click", function(){
+//           input.value = item.city
+//           fetchWeather(item.city)
+//           cityList.classList.remove("opacity-100", "visible");
+//           cityList.classList.add("opacity-0", "invisible");
+//         })
 
-        cityList.append(cityButton)
-    })
-  } 
-  catch (error) {
-    console.log(error);
-    cityList.innerHTML="Something is wrong....."
-  }
-}
+//         cityList.append(cityButton)
+//     })
+//   } 
+//   catch (error) {
+//     console.log(error);
+//     cityList.innerHTML="Something is wrong....."
+//   }
+// }
 
-input.addEventListener("input", (e)=>{
-  let inputValue = e.target.value.toLowerCase();
-  if(inputValue.length > 0){
-    cityList.classList.add("opacity-100", "visible");
-    cityList.classList.remove("opacity-0", "invisible");
-  }
-  else{
-    cityList.classList.remove("opacity-100", "visible");
-    cityList.classList.add("opacity-0", "invisible");
-  }
+// input.addEventListener("input", (e)=>{
+//   let inputValue = e.target.value.toLowerCase();
+//   if(inputValue.length > 0){
+//     cityList.classList.add("opacity-100", "visible");
+//     cityList.classList.remove("opacity-0", "invisible");
+//   }
+//   else{
+//     cityList.classList.remove("opacity-100", "visible");
+//     cityList.classList.add("opacity-0", "invisible");
+//   }
 
-  let filterAllButton = document.querySelectorAll(".cityList button")
+//   let filterAllButton = document.querySelectorAll(".cityList button")
 
-  filterAllButton.forEach(item =>{
-    if(item.innerHTML.toLowerCase().includes(inputValue)){
-      item.classList.remove("hidden")
-    }
-    else{
-      item.classList.add("hidden")
-    }
-  })
-})
+//   filterAllButton.forEach(item =>{
+//     if(item.innerHTML.toLowerCase().includes(inputValue)){
+//       item.classList.remove("hidden")
+//     }
+//     else{
+//       item.classList.add("hidden")
+//     }
+//   })
+// })
 
-fetchCities()
+// fetchCities()
 
 window.onload = function () {
   const lastCity = localStorage.getItem("lastCity") || "dhaka"; 
   document.getElementById("city-input").value = lastCity;
   fetchWeather(lastCity); 
+  input.value = "";
 };
