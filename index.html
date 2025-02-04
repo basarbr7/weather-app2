@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+  <!-- font awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- font awesome -->
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  <style>
+    #city-input, .bg-glass{
+        background: rgba(255, 255, 255, 0.05);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(0);
+        -webkit-backdrop-filter: blur(0);
+        border: 1px solid rgba(255, 255, 255, 0.155);
+    }
+  </style>
+</head>
+<body>
+  <div class="weather-app bg-[#204c84] max-w-[650px] mx-auto p-10 rounded-md shadow-lg mt-16 text-white">
+    <h1 class="title text-3xl">Weather App</h1>
+    <div class="search-container my-5 flex gap-x-2">
+      <div class="relative w-72">
+        <input id="city-input" value="dhaka" type="text" placeholder="Enter city name" class="search-input w-full py-2 px-5 bg-transparent border rounded outline-0" />
+
+        <div class="cityList opacity-0 invisible absolute top-full  left-0 z-40 rounded-br-md rounded-bl-md w-full max-h-[250px] overflow-y-scroll bg-[#848282]  p-3 flex flex-col gap-[1px]">
+           
+        </div>
+      </div>
+      <button id="search-button" class="search-button bg-[blue] py-2 px-5 rounded cursor-pointer">Search</button>
+    </div>
+
+    <div id="weather-result" class="weather-result">
+
+        <h2 class="country my-3 capitalize">dhaka, BD</h2>
+          <!--Current weather div-->
+        <div class="currentWeather bg-glass p-5">
+          <div class="flex flex-col leading-5">
+            <span class="text-xl">Current weather</span>
+            <span class="showTime text-[#b9b8b8]"></span>
+          </div>
+
+          <div class="flex gap-4 flex-wrap my-5">
+
+            <span class="bg-red-500 h-6 px-1 animate-pulse">Now</span>
+            <div class="flex items-start">
+              <span class="temp text-5xl">17.5°</span>
+              <span class="text-2xl mt-1">C</span>
+            </div>
+
+            <!-- description -->
+            <div class="flex flex-col text-xl ml-5">
+              <p class="weatherDesc capitalize"></p>
+              <p class="feelsLike text-base"></p>
+            </div>
+
+            <div class="sunMoon image ">
+              
+            </div>
+
+          </div>
+
+          <div class="lastFastTemp py-4">
+            
+          </div>
+          <!-- last description -->
+          <div class="flex justify-between gap-x-2 mt-4">
+            <div>
+              <p class="text-sm text-[#bcbbbb]">Wind</p>
+              <p class="wind"></p>
+            </div>
+           <div>
+              <p class="text-sm text-[#bcbbbb]">Humidity</p>
+              <p class="humidity"></p>
+           </div>
+            <div>
+              <p class="text-sm text-[#bcbbbb]">Visibility</p>
+              <p class="visibility"></p>
+            </div>
+            <div>
+              <p class="text-sm text-[#bcbbbb]">Pressure</p>
+              <p class="Pressure"></p>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  <script src="js.js"></script>
+</body>
+</html>
