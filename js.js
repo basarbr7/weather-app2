@@ -28,7 +28,7 @@ const displayWeather = (data) => {
     console.error("Invalid data or missing properties.");
     return;
   }
-  
+
   displayTime(data);
   sunMoon(data);
 
@@ -96,7 +96,7 @@ document.getElementById("search-button").addEventListener("click", () => {
   if (city) {
     fetchWeather(city);
   } else {
-    weatherResult.innerHTML = `<p style="color: red;">Please enter a city name.</p>`;
+    weatherResult.innerHTML = `<p class="text-[#f74545] text-lg font-semibold"> Refresh browser and Enter currect City name. ...</p>`;
   }
   cityList.classList.remove("opacity-100", "visible");
   cityList.classList.add("opacity-0", "invisible");
